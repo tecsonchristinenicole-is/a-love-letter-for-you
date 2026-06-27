@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> A letter for my Love🌹</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       TOKENS
+    ============================================ */
+    :root {
+      --bg:         #1e0408;
+      --bg-mid:     #2c0810;
+      --paper:      #f0e0c0;
+      --paper-aged: #e8d0a0;
+      --paper-dark: #d4b882;
+      --ink:        #1a0508;
+      --ink-soft:   #3d1a20;
+      --burgundy:   #6b1020;
+      --rose:       #c4748a;
+      --gold:       #b8860b;
+      --gold-light: #d4a820;
+      --cream:      #fdf6e3;
+      --wax:        #8b1a1a;
+      --wax-shine:  #c43030;
+
+      --ff-display: 'IM Fell English', serif;
+      --ff-heading: 'Playfair Display', serif;
+      --ff-body:    'Cormorant Garamond', serif;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--paper);
+      font-family: var(--ff-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+
+    /* ============================================
+       PARTICLES (floating dust)
+    ============================================ */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(0) scale(1); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(0.4) rotate(360deg); }
+    }
+
+    /* ============================================
+       BACKGROUND GRADIENT VIGNETTE
+    ============================================ */
+    .bg-vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, var(--bg-mid) 0%, var(--bg) 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================
+       ENVELOPE SCENE
+    ============================================ */
+    #envelope-scene {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #envelope-scene.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-hint {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--paper-dark);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeInHint 1.5s ease 0.8s forwards;
+    }
+
+    @keyframes fadeInHint {
+      to { opacity: 0.85; }
+    }
+
+    /* Envelope wrapper */
+    .envelope-wrap {
+      position: relative;
+      width: clamp(240px, 42vw, 360px);
+      cursor: pointer;
+      filter: drop-shadow(0 20px 60px rgba(180, 30, 50, 0.35));
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-wrap:hover { transform: translateY(-6px) scale(1.02); }
+
+    /* Envelope body */
+    .envelope-body {
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: linear-gradient(145deg, #c4a060 0%, #a07828 40%, #8a6018 100%);
+      border-radius: 4px;
+      position: relative;
+      border: 1.5px solid rgba(180, 140, 60, 0.5);
+      overflow: hidden;
+    }
+
+    /* V-fold side triangles */
+    .envelope-body::before,
+    .envelope-body::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    .envelope-body::before {
+      left: 0;
+      border-width: 0 0 55% 50%;
+      border-color: transparent transparent #9a7020 transparent;
+    }
+
+    .envelope-body::after {
+      right: 0;
+      border-width: 55% 0 0 50%;
+      border-color: transparent transparent transparent #9a7020;
+    }
+
+    /* Center bottom fold line */
+    .envelope-center-fold {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 50% solid transparent;
+      border-right: 50% solid transparent;
+      border-bottom: 40% solid #b08030;
+      pointer-events: none;
+    }
+
+    /* Envelope flap */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 55%;
+      background: linear-gradient(160deg, #d4b060 0%, #b08830 60%, #9a7020 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      border-bottom: 1px solid rgba(180, 140, 60, 0.4);
+      z-index: 2;
+    }
+
+    .envelope-wrap.opening .envelope-flap {
+      transform: rotateX(-180deg);
+    }
+
+    /* Wax seal */
+    .wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      width: clamp(52px, 10vw, 72px);
+      height: clamp(52px, 10vw, 72px);
+      z-index: 3;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+    }
+
+    .wax-seal:hover { transform: translate(-50%, -30%) scale(1.1); }
+
+    .wax-seal.broken {
+      opacity: 0;
+      transform: translate(-50%, -30%) scale(1.5) rotate(15deg);
+    }
+
+    .seal-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%, var(--wax-shine), var(--wax) 55%, #5a0808 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(100, 0, 0, 0.6), inset 0 2px 4px rgba(255, 100, 100, 0.2);
+      font-family: var(--ff-display);
+      font-size: clamp(16px, 3.5vw, 24px);
+      color: rgba(255, 220, 200, 0.9);
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+
+    /* ============================================
+       LETTER SCENE
+    ============================================ */
+    #letter-scene {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #letter-scene.visible {
+      display: flex;
+    }
+
+    /* ============================================
+       LETTER PAPER
+    ============================================ */
+    .letter-paper {
+      width: 100%;
+      max-width: 680px;
+      background: var(--paper);
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(139, 90, 60, 0.12) 31px,
+          rgba(139, 90, 60, 0.12) 32px
+        );
+      border-radius: 2px;
+      padding: clamp(32px, 6vw, 64px) clamp(28px, 7vw, 72px);
+      box-shadow:
+        0 4px 6px rgba(0,0,0,0.08),
+        0 24px 60px rgba(0,0,0,0.5),
+        inset 0 0 80px rgba(160, 100, 40, 0.08);
+      position: relative;
+      color: var(--ink);
+      animation: riseUp 1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Aged paper edges */
+    .letter-paper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 2px;
+      background: linear-gradient(
+        to bottom,
+        rgba(180, 120, 40, 0.08) 0%,
+        transparent 15%,
+        transparent 85%,
+        rgba(180, 120, 40, 0.12) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Left margin rule */
+    .letter-paper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: clamp(52px, 12vw, 96px);
+      width: 1px;
+      height: 100%;
+      background: rgba(180, 100, 100, 0.2);
+    }
+
+    /* ============================================
+       LETTER HEADER
+    ============================================ */
+    .letter-ornament {
+      text-align: center;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .letter-date {
+      text-align: right;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+      opacity: 0.75;
+    }
+
+    .letter-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--burgundy);
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .letter-salutation {
+      font-family: var(--ff-display);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    /* ============================================
+       TYPEWRITER TEXT
+    ============================================ */
+    .letter-body {
+      font-family: var(--ff-body);
+      font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+      line-height: 2;
+      color: var(--ink-soft);
+      white-space: pre-wrap;
+      min-height: 2em;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--burgundy);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ============================================
+       DIVIDER
+    ============================================ */
+    .letter-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 36px 0;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    .letter-divider span { flex: 1; height: 1px; background: currentColor; }
+
+    /* ============================================
+       PHOTO SECTION
+    ============================================ */
+    .photos-section {
+      width: 100%;
+      max-width: 720px;
+      margin: 40px 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .photos-section.visible { opacity: 1; }
+
+    .photos-label {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--paper-dark);
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.06em;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px;
+    }
+
+    /* Polaroid-style photo frames */
+    .polaroid {
+      background: #f5ead4;
+      padding: 12px 12px 44px;
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.4),
+        0 1px 3px rgba(0,0,0,0.3);
+      position: relative;
+      transform: rotate(var(--tilt, -2deg));
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.04);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+
+    .polaroid:nth-child(even) { --tilt: 1.5deg; }
+    .polaroid:nth-child(3n)   { --tilt: -3deg; }
+    .polaroid:nth-child(4n)   { --tilt: 2.5deg; }
+
+    .polaroid-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #c4a878 0%, #a08050 40%, #8a6438 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(255, 235, 200, 0.7);
+      text-align: center;
+      padding: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .polaroid-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .polaroid-img img.loaded { display: block; }
+
+    .polaroid-img .placeholder-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .polaroid-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.78rem;
+      color: #5a3820;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    /* ============================================
+       CLOSING SECTION
+    ============================================ */
+    .letter-closing {
+      width: 100%;
+      max-width: 680px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .letter-closing.visible { opacity: 1; }
+
+    .closing-paper {
+      background: var(--paper);
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(139, 90, 60, 0.12) 31px,
+          rgba(139, 90, 60, 0.12) 32px
+        );
+      border-radius: 2px;
+      padding: clamp(28px, 5vw, 52px) clamp(28px, 7vw, 72px) clamp(36px, 6vw, 64px);
+      box-shadow:
+        0 4px 6px rgba(0,0,0,0.08),
+        0 24px 60px rgba(0,0,0,0.5);
+      color: var(--ink);
+      position: relative;
+    }
+
+    .closing-paper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: clamp(52px, 12vw, 96px);
+      width: 1px;
+      height: 100%;
+      background: rgba(180, 100, 100, 0.2);
+    }
+
+    .closing-text {
+      font-family: var(--ff-body);
+      font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+      line-height: 2;
+      color: var(--ink-soft);
+      min-height: 2em;
+    }
+
+    .closing-signature {
+      font-family: var(--ff-heading);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-style: italic;
+      color: var(--burgundy);
+      margin-top: 24px;
+      text-align: right;
+    }
+
+    .closing-hearts {
+      text-align: center;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      margin-top: 20px;
+      letter-spacing: 0.4em;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.08); }
+    }
+
+    /* ============================================
+       MUSIC PLAYER (hidden YouTube + custom UI)
+    ============================================ */
+    #yt-player {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      left: -9999px;
+      top: -9999px;
+    }
+
+    .music-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 100;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%, var(--wax-shine), var(--wax) 70%);
+      border: 2px solid var(--gold);
+      color: var(--paper);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(100, 0, 0, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 28px rgba(140, 20, 20, 0.6);
+    }
+
+    .music-label {
+      position: fixed;
+      bottom: 88px;
+      right: 28px;
+      z-index: 100;
+      background: rgba(30, 4, 8, 0.88);
+      border: 1px solid rgba(180, 140, 60, 0.3);
+      color: var(--paper-dark);
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .music-btn:hover + .music-label,
+    .music-btn:focus + .music-label { opacity: 1; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 600px) {
+      .letter-paper, .closing-paper { padding: 28px 22px 36px; }
+      .letter-paper::after, .closing-paper::after { display: none; }
+      .photos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .music-btn { bottom: 18px; right: 18px; width: 46px; height: 46px; }
+      .music-label { bottom: 72px; right: 18px; }
+    }
+
+    /* ============================================
+       SCROLL HINT
+    ============================================ */
+    .scroll-hint {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--paper-dark);
+      opacity: 0;
+      animation: fadeScroll 2s ease 3s infinite alternate;
+      pointer-events: none;
+      z-index: 6;
+      letter-spacing: 0.08em;
+    }
+
+    @keyframes fadeScroll {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(4px); }
+      100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg-vignette"></div>
+  <div id="particles"></div>
+
+  <!-- Hidden YouTube player -->
+  <div id="yt-player"></div>
+
+  <!-- ===== ENVELOPE SCENE ===== -->
+  <div id="envelope-scene">
+    <p class="envelope-hint">A letter awaits you...</p>
+
+    <div class="envelope-wrap" id="envelopeWrap">
+      <div class="envelope-body">
+        <div class="envelope-flap" id="envelopeFlap"></div>
+        <div class="envelope-center-fold"></div>
+
+        <!-- Wax seal -->
+        <div class="wax-seal" id="waxSeal">
+          <div class="seal-circle">♥</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="envelope-hint" style="animation-delay:1.2s; font-size: clamp(0.8rem, 2vw, 0.92rem); color: var(--rose); opacity:0;">
+      Tap the seal to open
+    </p>
+  </div>
+
+  <!-- ===== LETTER SCENE ===== -->
+  <div id="letter-scene">
+
+    <!-- Main letter paper -->
+    <div class="letter-paper" id="letterPaper">
+      <div class="letter-ornament">❧ &nbsp; ✦ &nbsp; ❧</div>
+
+      <p class="letter-date" id="letterDate"></p>
+
+      <h1 class="letter-title">To My Dearest, Ashna</h1>
+
+      <p class="letter-salutation">My love,</p>
+
+      <div class="letter-body" id="letterBody"></div>
+
+      <div class="letter-divider">
+        <span></span>✦<span></span>
+      </div>
+    </div>
+
+    <!-- Photo polaroids -->
+    <div class="photos-section" id="photosSection">
+      <p class="photos-label">~ moments I treasure with you ~</p>
+      <div class="photos-grid" id="photosGrid">
+        <!-- Polaroids injected by JS -->
+      </div>
+    </div>
+
+    <!-- Closing letter -->
+    <div class="letter-closing" id="letterClosing">
+      <div class="closing-paper">
+        <div class="closing-text" id="closingBody"></div>
+        <div class="closing-signature" id="closingSignature"></div>
+        <div class="closing-hearts">♥ &nbsp; ♥ &nbsp; ♥</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Music button -->
+  <button class="music-btn" id="musicBtn" title="Toggle music" aria-label="Toggle background music">
+    ♪
+  </button>
+  <span class="music-label">Toggle music</span>
+
+  <!-- Scroll hint (shows after letter opens) -->
+  <p class="scroll-hint" id="scrollHint">scroll down ↓</p>
+
+  <!-- YouTube IFrame API -->
+  <script>
+    /* ============================================
+       CONFIGURATION — edit these!
+    ============================================ */
+    const CONFIG = {
+      // Names
+      recipientName: 'My Dearest, Ashna',
+      senderName:    'Nicole',
+
+      // Monthsary info
+      monthsaryNumber: '6th',  // e.g. "1st", "6th", "12th"
+      date: new Date('2026-06-28').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+
+      // YouTube video ID (from the link you gave)
+      youtubeId: 'rGaYGUqivA0',
+
+      // ── Love letter content ──
+      // Change these to your own words!
+      letterParagraphs: [
+        `It has been 6 months since the day you came into my life, and I still find myself catching my breath every time I think of you. Every single day with you feels like a page from a story I never want to end.`,
+
+        `You have this quiet way of making everything feel softer — the mornings, the hard days, the ordinary moments that somehow become extraordinary just because you are there. I did not know it was possible to feel this safe in someone's presence until I found it in yours.`,
+
+        `I keep a little collection of you in my heart: the way you laugh when something catches you off guard, the warmth of your hand in mine, the sound of your voice when you say my name. These are the things I hold onto. These are the things I will always hold onto.`,
+      ],
+
+      closingParagraphs: [
+        `Thank you for every laugh, every quiet moment, every time you stayed. Thank you for choosing me, again and again, without hesitation.`,
+
+        `I love you more than these words can carry — but I will spend every month ahead trying to show you what I mean.`,
+      ],
+
+      // Photo captions (one per frame — add as many as you like)
+      // To use real photos: set src to a path like "photos/photo1.jpg"
+      photos: [
+        { caption: 'our beginning ♥', src: 'love/babyyarn.jpg' },
+        { caption: 'forever & always', src: 'love/loveme.jpg' },
+        { caption: 'you & me', src: 'love/lovemebaby.jpg' },
+        { caption: 'my favorite baby', src: 'love/mwamwa.jpg' },
+      ],
+    };
+
+    /* ============================================
+       PARTICLES
+    ============================================ */
+    (function spawnParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 28; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 3 + 1;
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${Math.random() * 100}%;
+          bottom: ${Math.random() * -20}%;
+          animation-duration: ${Math.random() * 14 + 10}s;
+          animation-delay: ${Math.random() * 8}s;
+          opacity: ${Math.random() * 0.5 + 0.1};
+          background: ${Math.random() > 0.5 ? '#b8860b' : '#c4748a'};
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    /* ============================================
+       SET DATE
+    ============================================ */
+    document.getElementById('letterDate').textContent = CONFIG.date;
+
+    /* ============================================
+       PHOTO GRID
+    ============================================ */
+    const grid = document.getElementById('photosGrid');
+    CONFIG.photos.forEach(ph => {
+      const div = document.createElement('div');
+      div.className = 'polaroid';
+      div.innerHTML = `
+        <div class="polaroid-img">
+          <span class="placeholder-icon">📷</span>
+          <span>Add your photo here</span>
+          ${ph.src ? `<img src="${ph.src}" alt="${ph.caption}" onload="this.classList.add('loaded')">` : ''}
+        </div>
+        <div class="polaroid-caption">${ph.caption}</div>
+      `;
+      grid.appendChild(div);
+    });
+
+    /* ============================================
+       YOUTUBE PLAYER
+    ============================================ */
+    let ytIframe = null;
+    let musicPlaying = false;
+
+    function createYouTubeIframe() {
+      if (ytIframe) return ytIframe;
+      const container = document.getElementById('yt-player');
+      const iframe = document.createElement('iframe');
+      iframe.id = 'yt-player-frame';
+      iframe.width = '1';
+      iframe.height = '1';
+      iframe.style.border = '0';
+      iframe.style.position = 'absolute';
+      iframe.style.left = '-9999px';
+      iframe.style.top = '-9999px';
+      iframe.allow = 'autoplay; encrypted-media';
+      iframe.allowFullscreen = true;
+      iframe.src = `https://www.youtube.com/embed/${CONFIG.youtubeId}?enablejsapi=1&controls=0&loop=1&playlist=${CONFIG.youtubeId}&modestbranding=1&rel=0`;
+      container.appendChild(iframe);
+      ytIframe = iframe;
+      return iframe;
+    }
+
+    function sendYTCommand(command) {
+      if (!ytIframe || !ytIframe.contentWindow) return;
+      ytIframe.contentWindow.postMessage(JSON.stringify({
+        event: 'command',
+        func: command,
+        args: [],
+      }), '*');
+    }
+
+    function toggleMusic() {
+      const btn = document.getElementById('musicBtn');
+      if (!ytIframe) createYouTubeIframe();
+      if (musicPlaying) {
+        sendYTCommand('pauseVideo');
+        btn.textContent = '♪';
+        musicPlaying = false;
+      } else {
+        sendYTCommand('playVideo');
+        btn.textContent = '❚❚';
+        musicPlaying = true;
+      }
+    }
+
+    function startMusic() {
+      if (musicPlaying) return;
+      createYouTubeIframe();
+      sendYTCommand('playVideo');
+      document.getElementById('musicBtn').textContent = '❚❚';
+      musicPlaying = true;
+    }
+
+    document.getElementById('musicBtn').addEventListener('click', toggleMusic);
+
+    /* ============================================
+       TYPEWRITER ENGINE
+    ============================================ */
+    function typeText(element, text, speed, onDone) {
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      element.appendChild(cursor);
+
+      function tick() {
+        if (i < text.length) {
+          cursor.before(document.createTextNode(text[i]));
+          i++;
+          // Vary speed slightly for realism
+          const delay = text[i - 1] === '.' || text[i - 1] === ',' ? speed * 6 :
+                        text[i - 1] === '\n' ? speed * 4 : speed;
+          setTimeout(tick, delay + Math.random() * (speed * 0.5));
+        } else {
+          cursor.remove();
+          if (onDone) onDone();
+        }
+      }
+      tick();
+    }
+
+    function typeParagraphs(element, paragraphs, speed, onDone) {
+      let p = 0;
+      function next() {
+        if (p < paragraphs.length) {
+          if (p > 0) {
+            element.appendChild(document.createTextNode('\n\n'));
+          }
+          typeText(element, paragraphs[p], speed, () => {
+            p++;
+            setTimeout(next, 500);
+          });
+        } else {
+          if (onDone) onDone();
+        }
+      }
+      next();
+    }
+
+    /* ============================================
+       ENVELOPE OPEN SEQUENCE
+    ============================================ */
+    let opened = false;
+
+    function openEnvelope() {
+      if (opened) return;
+      opened = true;
+
+      const wrap    = document.getElementById('envelopeWrap');
+      const seal    = document.getElementById('waxSeal');
+      const scene   = document.getElementById('envelope-scene');
+      const letter  = document.getElementById('letter-scene');
+
+      // Break seal
+      seal.classList.add('broken');
+
+      // Start music
+      startMusic();
+
+      // Open flap after a moment
+      setTimeout(() => {
+        wrap.classList.add('opening');
+      }, 400);
+
+      // Fade out envelope, show letter
+      setTimeout(() => {
+        scene.classList.add('hidden');
+        letter.classList.add('visible');
+        document.getElementById('scrollHint').style.display = 'block';
+
+        // Begin typewriter after paper rises
+        setTimeout(() => {
+          typeParagraphs(
+            document.getElementById('letterBody'),
+            CONFIG.letterParagraphs,
+            38,
+            () => {
+              // Show photos
+              setTimeout(() => {
+                document.getElementById('photosSection').classList.add('visible');
+
+                // Show closing letter
+                setTimeout(() => {
+                  const closing = document.getElementById('letterClosing');
+                  closing.classList.add('visible');
+
+                  typeParagraphs(
+                    document.getElementById('closingBody'),
+                    CONFIG.closingParagraphs,
+                    40,
+                    () => {
+                      // Signature
+                      setTimeout(() => {
+                        const sig = document.getElementById('closingSignature');
+                        typeText(sig, `With all my love,\n${CONFIG.senderName}`, 55);
+                      }, 400);
+                    }
+                  );
+                }, 800);
+              }, 600);
+            }
+          );
+        }, 1000);
+      }, 1600);
+    }
+
+    document.getElementById('envelopeWrap').addEventListener('click', openEnvelope);
+    document.getElementById('waxSeal').addEventListener('click', e => {
+      e.stopPropagation();
+      openEnvelope();
+    });
+  </script>
+
+</body>
+</html>
